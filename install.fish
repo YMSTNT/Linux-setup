@@ -7,11 +7,16 @@ if test $USER = "root"
 end 
 
 ## Aliases
-alias paci='paru -S --noconfirm --needed'
-alias pacu='paru -Syy --noconfirm'
+alias dnfi='sudo dnf install -y'
+alias dnfu='sudo dnf update -y'
+
+## Refresh the temporary directory
+rm -vrf temp
+mkdir -v temp
+cd temp
 
 function link
-  ./link.fish $argv[1]
+  ../link.fish $argv[1]
 end
 
 set packages
@@ -22,22 +27,25 @@ end
 ## Define an install process for every application
 
 function firefox
-  queue community/firefox-developer-edition
+  wget -O firefox-dev.tar.bz2 "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US"
+	tar xvf firefox-dev.tar.bz2
+	sudo mv firefox /opt/firefox-dev
+	sudo cp ../launchers/firefox-dev.desktop /usr/share/applications/firefox-dev.desktop
 end
 
 function sublime_text
-  queue aur/sublime-text-4
+  sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+	sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+  queue sublime-text
 end
 
 function discord
-  queue community/discord
-  link .config/autostart/discord.desktop
+  flatpak install flathub com.discordapp.Discord
 end
 
 function redshift
-  queue aur/redshift-gtk-git
+  queue redshift
   link .config/redshift.conf
-  link .config/autostart/redshift-gtk.desktop
 end
 
 function fish
@@ -46,15 +54,11 @@ function fish
 end
 
 function python
-  queue extra/python-pip
-end
-
-function postman
-  queue aur/postman-bin
+  queue python-pip
 end
 
 function flameshot
-  paci community/flameshot
+  dnfi flameshot
   # unbind default screenshot
   gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot-clip "[]"
   gsettings set org.gnome.settings-daemon.plugins.media-keys area-screenshot-clip "[]"
@@ -86,123 +90,74 @@ function git
 end
 
 function vs_code
-  queue aur/visual-studio-code-bin
+  queue code
   link .config/Code/User/settings.json
-  link .config/Code/User/keybindings.json
-  link .config/Code/User/.vimrc
+  # link .config/Code/User/keybindings.json
 end
 
 function java
   # java-8
   sudo rm /bin/java
-  paci extra/jdk8-openjdk
-  sudo ln -sf /usr/lib/jvm/java-8-openjdk/bin/java /bin/java-8
+  dnfi java-1.8.0-openjdk.x86_64
+  sudo ln -sf /usr/lib/jvm/java-1.8.0-openjdk*/jre/bin/java /bin/java-8
   # java-17
   sudo rm /bin/java
-  paci extra/jdk17-openjdk
-  sudo ln -sf /usr/lib/jvm/java-17-openjdk/bin/java /bin/java-17
+  dnfi java-latest-openjdk.x86_64
+  sudo ln -sf /usr/lib/jvm/java-17-openjdk*/bin/java /bin/java-17
   # default java is 17
   sudo ln -sf /bin/java-17 /bin/java
 end
 
 function nodejs
-  queue community/nodejs
-end
-
-function yarn
-  queue community/yarn
+  queue nodejs
 end
 
 function csharp
-  queue community/dotnet-sdk
-end
-
-function sqlite
-  queue core/sqlite
-end
-
-function dbeaver
-  queue community/dbeaver
+  queue dotnet-sdk-6.0
 end
 
 function wine
-  queue multilib/wine
+  queue wine
 end
 
 function steam
-  queue multilib/steam
+  queue steam
 end
 
 function heroic
-  queue aur/heroic-games-launcher-bin
-  link .config/heroic
-end
-
-function lutris
-  queue community/lutris
+  sudo dnf copr enable atim/heroic-games-launcher -y
+  queue heroic-games-launcher-bin
+  link .config/heroic/config.json
+  link .config/heroic/GamesConfig/CrabEA.json
 end
 
 function multimc
-  queue aur/multimc-bin
-end
-
-function filezilla
-  queue community/filezilla
-  link .config/filezilla/sitemanager.xml
+  sudo cp ../launchers/multimc.desktop /usr/share/applications/multimc.desktop
+	sudo mkdir /opt/multimc
+	sudo chown $USER /opt/multimc
+	sudo cp ../multimc/icon.svg /opt/multimc/icon.svg
+	sudo cp ../multimc/run.sh /opt/multimc/run.sh
 end
 
 function teams
-  queue aur/teams
+  flatpak install flathub com.microsoft.Teams
 end
 
-function anydesk
-  queue aur/anydesk-bin
-end
-
-function vim
-  paci extra/vim
-  paci community/neovim
-  paci extra/xclip
-  if ! test -d ~/.SpaceVim
-    curl -Lv https://spacevim.org/install.sh | bash
-    link .SpaceVim.d
-  end
-end
-
-function swap_caps_and_esc
-  gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape']"
-end
-
-function fman
-  if ! grep -Fq '[fman]' /etc/pacman.conf
-    sudo pacman-key --keyserver hkp://keyserver.ubuntu.com:80 -r 9CFAF7EB
-    sudo pacman-key --lsign-key 9CFAF7EB
-    echo -e '\n[fman]\nServer = https://fman.io/updates/arch' | sudo tee -a /etc/pacman.conf
-    pacu
-  end
-  queue fman/fman
-end
+#function fman
+#  sudo rpm -v --import https://download.fman.io/rpm/public.gpg
+#  sudo dnf config-manager --add-repo https://download.fman.io/rpm/fman.repo
+#  sudo dnf install compat-openssl10
+#  queue fman
+#end
 
 function obs
-  queue community/obs-studio
-end
-
-function openshot
-  queue community/openshot
-end
-
-function sshfs
-  queue community/sshfs
+  queue obs-studio
 end
 
 function terminal_autocomplete_case_insensitive
   if ! grep -Fq 'set completion-ignore-case on' /etc/inputrc
     echo 'set completion-ignore-case on' | sudo tee -a /etc/inputrc
   end
-end
-
-function xampp
-  queue aur/xampp
 end
 
 function gnome_keyboard_shortcuts
@@ -224,9 +179,8 @@ function gnome_keyboard_shortcuts
   gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-out "['<Super>-']" # zoom out
 end
 
-function gnome
-  paci gnome
-  paci aur/chrome-gnome-shell
+function gnome_tweaks
+  queue gnome-tweak-tool
 end
 
 ## Call the install functions
@@ -243,31 +197,20 @@ if ! test -n "$argv"
   redshift
   fish
   python
-  postman
   flameshot
   vs_code
   java
   csharp
-  sqlite
-  dbeaver
   wine
   steam
   heroic
-  lutris
   multimc
-  filezilla
   teams
-  anydesk
-  vim
-  swap_caps_and_esc
-  fman
+  #fman
   obs
-  openshot
-  sshfs
   terminal_autocomplete_case_insensitive
-  xampp
   gnome_keyboard_shortcuts
-  gnome
+  gnome_tweaks
   ################################################################
   ################################################################
   ######################## END OF TOOLS ##########################
@@ -281,5 +224,9 @@ end
 
 # Install
 if test -n "$packages"
-  paci $packages
+  dnfi $packages
 end
+
+# Delete temp
+cd ..
+rm -rf temp

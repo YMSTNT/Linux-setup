@@ -1,9 +1,105 @@
-format = """
-(bold green)$directory\\$ 
-"""
+## FIRST LINE/ROW: Info & Status
+# First param ─┌
+[username]
+format = " [╭─$user]($style)"
+style_user = "bold #add8e6"
+style_root = "bold #add8e6"
+show_always = true
 
-# Wait 10 milliseconds for starship to check files under the current directory.
-scan_timeout = 10
+# Second param
+[hostname]
+format = "@[$hostname]($style)"
+style = "bold blue"
+trim_at = "-"
+ssh_only = true
+disabled = false
 
-# Disable the blank line at the start of the prompt
-add_newline = false
+# Third param
+[directory]
+style = "light_blue"
+truncation_length = 3
+truncation_symbol = "…/"
+format = " [$path]($style) "
+
+# Last param in the first line/row
+[cmd_duration]
+min_time = 1
+format = "took [$duration]($style)"
+disabled = false
+
+## SECOND LINE/ROW: Prompt
+
+# Prompt: param 2 └─
+[character]
+success_symbol = " [╰─▶](bold #add8e6)"
+error_symbol = " [╰─×](bold #add8e6)"
+
+# SYMBOLS
+[status]
+symbol = "🔴"
+format = '[\[$symbol$status_common_meaning$status_signal_name$status_maybe_int\]]($style)'
+map_symbol = true
+disabled = true
+
+[aws]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[package]
+symbol = " "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[python]
+symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[swift]
+symbol = "ﯣ "
