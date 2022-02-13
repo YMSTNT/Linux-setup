@@ -37,6 +37,7 @@ function firefox
 	tar xvf firefox-dev.tar.bz2
 	sudo mv firefox /opt/firefox-dev
 	sudo cp ../launchers/firefox-dev.desktop /usr/share/applications/firefox-dev.desktop
+  sudo ln -s /usr/lib64/mozilla/native-messaging-hosts /usr/lib/mozilla/native-messaging-hosts # Required for gnome extensions add-on to work
 end
 
 function sublime_text
@@ -199,7 +200,7 @@ function gnome_debloat
   delqueue cheese
   delqueue rhythmbox
   delqueue totem
-  queue totem-video-thumbnailer
+  queue totem-video-thumbnailer # Required for video thumbnails in nautilus to work
   delqueue gnome-photos
   delqueue gnome-connections
   delqueue gnome-boxes
