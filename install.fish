@@ -9,6 +9,7 @@ end
 ## Aliases
 alias dnfi='sudo dnf install -y'
 alias dnfu='sudo dnf update -y'
+alias dnfr='sudo dnf remove -y'
 
 ## Refresh the temporary directory
 rm -vrf temp
@@ -22,6 +23,11 @@ end
 set packages
 function queue
   set packages $packages $argv[1]
+end
+
+set delpackages
+function delqueue
+  set delpackages $delpackages $argv[1]
 end
 
 ## Define an install process for every application
@@ -179,8 +185,29 @@ function gnome_keyboard_shortcuts
   gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-out "['<Super>-']" # zoom out
 end
 
-function gnome_tweaks
+function gnome_extra
   queue gnome-tweak-tool
+  flatpak install org.gnome.Extensions -y
+  flatpak install flathub com.mattjakeman.ExtensionManager -y
+end
+
+function gnome_debloat
+  delqueue gnome-weather
+  delqueue gnome-maps
+  delqueue gnome-clocks
+  delqueue gedit
+  delqueue cheese
+  delqueue rhythmbox
+  delqueue totem
+  queue totem-video-thumbnailer
+  delqueue gnome-photos
+  delqueue gnome-connections
+  delqueue gnome-boxes
+  delqueue gnome-tour
+end
+
+function extra_debloat
+  delqueue mediawriter
 end
 
 ## Call the install functions
@@ -210,7 +237,9 @@ if ! test -n "$argv"
   obs
   terminal_autocomplete_case_insensitive
   gnome_keyboard_shortcuts
-  gnome_tweaks
+  gnome_extra
+  gnome_debloat
+  extra_debloat
   ################################################################
   ################################################################
   ######################## END OF TOOLS ##########################
@@ -225,6 +254,11 @@ end
 # Install
 if test -n "$packages"
   dnfi $packages
+end
+
+# Remove
+if test -n "$delpackages"
+  dnfr $delpackages
 end
 
 # Delete temp
