@@ -47,7 +47,7 @@ function sublime_text
 end
 
 function discord
-  flatpak install flathub com.discordapp.Discord
+  flatpak install flathub com.discordapp.Discord -y
 end
 
 function redshift
@@ -147,7 +147,7 @@ function multimc
 end
 
 function teams
-  flatpak install flathub com.microsoft.Teams
+  flatpak install flathub com.microsoft.Teams -y
 end
 
 #function fman
@@ -162,11 +162,11 @@ function obs
 end
 
 function bitwarden
-  flatpak install flathub com.bitwarden.desktop
+  flatpak install flathub com.bitwarden.desktop -y
 end
 
 function obsidian
-  flatpak install flathub md.obsidian.Obsidian
+  flatpak install flathub md.obsidian.Obsidian -y
 end
 
 function media_players
@@ -179,19 +179,19 @@ function gimp
 end
 
 function dbeaver
-  flatpak install flathub io.dbeaver.DBeaverCommunity
+  flatpak install flathub io.dbeaver.DBeaverCommunity -y
 end
 
 function utilities
-  flatpak install flathub dev.geopjr.Hashbrown
-  flatpak install flathub org.gnome.World.PikaBackup
-  flatpak install flathub re.sonny.Commit
-  flatpak install flathub de.haeckerfelix.Fragments
+  flatpak install flathub dev.geopjr.Hashbrown -y
+  flatpak install flathub org.gnome.World.PikaBackup -y
+  flatpak install flathub re.sonny.Commit -y
+  flatpak install flathub de.haeckerfelix.Fragments -y
 end
 
 function thunderbird
-  flatpak install flathub org.mozilla.Thunderbird
-  flatpak install flathub com.ulduzsoft.Birdtray
+  flatpak install flathub org.mozilla.Thunderbird -y
+  flatpak install flathub com.ulduzsoft.Birdtray -y
 end
 
 function terminal_autocomplete_case_insensitive
