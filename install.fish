@@ -161,6 +161,39 @@ function obs
   queue obs-studio
 end
 
+function bitwarden
+  flatpak install flathub com.bitwarden.desktop
+end
+
+function obsidian
+  flatpak install flathub md.obsidian.Obsidian
+end
+
+function media_players
+  queue vlc
+  queue celluloid
+end
+
+function gimp
+  queue gimp
+end
+
+function dbeaver
+  flatpak install flathub io.dbeaver.DBeaverCommunity
+end
+
+function utilities
+  flatpak install flathub dev.geopjr.Hashbrown
+  flatpak install flathub org.gnome.World.PikaBackup
+  flatpak install flathub re.sonny.Commit
+  flatpak install flathub de.haeckerfelix.Fragments
+end
+
+function thunderbird
+  flatpak install flathub org.mozilla.Thunderbird
+  flatpak install flathub com.ulduzsoft.Birdtray
+end
+
 function terminal_autocomplete_case_insensitive
   if ! grep -Fq 'set completion-ignore-case on' /etc/inputrc
     echo 'set completion-ignore-case on' | sudo tee -a /etc/inputrc
@@ -236,6 +269,13 @@ if ! test -n "$argv"
   teams
   #fman
   obs
+  bitwarden
+  obsidian
+  media_players
+  gimp
+  dbeaver
+  utilities
+  thunderbird
   terminal_autocomplete_case_insensitive
   gnome_keyboard_shortcuts
   gnome_extra
