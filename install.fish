@@ -43,7 +43,7 @@ end
 function sublime_text
   sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 	sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-  queue sublime-text
+  dnfi sublime-text
 end
 
 function discord
@@ -132,8 +132,7 @@ function steam
 end
 
 function heroic
-  sudo dnf copr enable atim/heroic-games-launcher -y
-  queue heroic-games-launcher-bin
+  flatpak install flathub com.heroicgameslauncher.hgl -y
   link .config/heroic/config.json
   link .config/heroic/GamesConfig/CrabEA.json
 end
