@@ -179,11 +179,29 @@ function dbeaver
   flatpak install flathub io.dbeaver.DBeaverCommunity -y
 end
 
-function utilities
+function flatseal
   flatpak install flathub com.github.tchx84.Flatseal -y
-  flatpak install flathub dev.geopjr.Collision -y
-  flatpak install flathub org.gnome.World.PikaBackup -y
+end
+
+function fragments
   flatpak install flathub de.haeckerfelix.Fragments -y
+end
+
+function backup
+  flatpak install flathub org.gnome.World.PikaBackup -y
+end
+
+function bottles
+  flatpak install flathub com.usebottles.bottles -y
+end
+
+function fileroller
+  flatpak install flathub org.gnome.FileRoller
+end
+
+function utilities
+  flatpak install flathub dev.geopjr.Collision -y
+  flatpak install flathub org.freedesktop.Piper -y
 end
 
 function freetube
@@ -282,6 +300,11 @@ if ! test -n "$argv"
   media_players
   gimp
   dbeaver
+  flatseal
+  fragments
+  backup
+  bottles
+  fileroller
   utilities
   freetube
   thunderbird
