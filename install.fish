@@ -180,15 +180,23 @@ function dbeaver
 end
 
 function utilities
-  flatpak install flathub dev.geopjr.Hashbrown -y
+  flatpak install flathub com.github.tchx84.Flatseal -y
+  flatpak install flathub dev.geopjr.Collision -y
   flatpak install flathub org.gnome.World.PikaBackup -y
-  flatpak install flathub re.sonny.Commit -y
   flatpak install flathub de.haeckerfelix.Fragments -y
+end
+
+function freetube
+  flatpak install flathub io.freetubeapp.FreeTube -y
 end
 
 function thunderbird
   flatpak install flathub org.mozilla.Thunderbird -y
   flatpak install flathub com.ulduzsoft.Birdtray -y
+end
+
+function onlyoffice
+  flatpak install flathub org.onlyoffice.desktopeditors -y
 end
 
 function terminal_autocomplete_case_insensitive
@@ -239,6 +247,9 @@ end
 
 function extra_debloat
   delqueue mediawriter
+  delqueue libreoffice-writer
+  delqueue libreoffice-calc
+  delqueue libreoffice-impress
 end
 
 ## Call the install functions
@@ -272,7 +283,9 @@ if ! test -n "$argv"
   gimp
   dbeaver
   utilities
+  freetube
   thunderbird
+  onlyoffice
   terminal_autocomplete_case_insensitive
   gnome_keyboard_shortcuts
   gnome_extra
