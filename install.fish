@@ -137,14 +137,6 @@ function heroic
   link .config/heroic/GamesConfig/CrabEA.json
 end
 
-function multimc
-  sudo cp ../launchers/multimc.desktop /usr/share/applications/multimc.desktop
-	sudo mkdir /opt/multimc
-	sudo chown $USER /opt/multimc
-	sudo cp ../multimc/icon.svg /opt/multimc/icon.svg
-	sudo cp ../multimc/run.sh /opt/multimc/run.sh
-end
-
 function minecraft
   flatpak install flathub org.polymc.PolyMC -y
   flatpak override org.polymc.PolyMC --filesystem=home
@@ -270,7 +262,6 @@ if ! test -n "$argv"
   wine
   steam
   heroic
-  multimc
   minecraft
   teams
   #fman
