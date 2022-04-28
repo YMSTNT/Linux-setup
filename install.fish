@@ -145,6 +145,12 @@ function multimc
 	sudo cp ../multimc/run.sh /opt/multimc/run.sh
 end
 
+function minecraft
+  flatpak install flathub org.polymc.PolyMC -y
+  flatpak override org.polymc.PolyMC --filesystem=home
+  flatpak install flathub com.mojang.Minecraft -y
+end
+
 function teams
   flatpak install flathub com.microsoft.Teams -y
 end
@@ -265,6 +271,7 @@ if ! test -n "$argv"
   steam
   heroic
   multimc
+  minecraft
   teams
   #fman
   obs
