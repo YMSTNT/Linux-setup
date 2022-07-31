@@ -40,19 +40,12 @@ function firefox
   sudo ln -s /usr/lib64/mozilla/native-messaging-hosts /usr/lib/mozilla/native-messaging-hosts # Required for gnome extensions add-on to work
 end
 
-function sublime_text
-  sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
-	sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-  dnfi sublime-text
+function gnome-text-editor
+  queue gnome-text-editor
 end
 
 function discord
   flatpak install flathub com.discordapp.Discord -y
-end
-
-function redshift
-  queue redshift
-  link .config/redshift.conf
 end
 
 function fish
@@ -123,10 +116,6 @@ function csharp
   queue dotnet-sdk-6.0
 end
 
-function wine
-  queue wine
-end
-
 function steam
   queue steam
 end
@@ -146,13 +135,6 @@ end
 function teams
   flatpak install flathub com.microsoft.Teams -y
 end
-
-#function fman
-#  sudo rpm -v --import https://download.fman.io/rpm/public.gpg
-#  sudo dnf config-manager --add-repo https://download.fman.io/rpm/fman.repo
-#  sudo dnf install compat-openssl10
-#  queue fman
-#end
 
 function obs
   queue obs-studio
@@ -196,7 +178,7 @@ function bottles
 end
 
 function fileroller
-  flatpak install flathub org.gnome.FileRoller
+  flatpak install flathub org.gnome.FileRoller -y
 end
 
 function utilities
@@ -208,9 +190,10 @@ function freetube
   flatpak install flathub io.freetubeapp.FreeTube -y
 end
 
-function thunderbird
+function mail
+  queue geary
   flatpak install flathub org.mozilla.Thunderbird -y
-  flatpak install flathub com.ulduzsoft.Birdtray -y
+  #flatpak install flathub com.ulduzsoft.Birdtray -y
 end
 
 function onlyoffice
@@ -270,6 +253,11 @@ function extra_debloat
   delqueue libreoffice-impress
 end
 
+function terminal
+  delqueue gnome-terminal
+  flatpak install flathub com.raggesilver.BlackBox -y
+end
+
 ## Call the install functions
 
 if ! test -n "$argv"
@@ -279,7 +267,7 @@ if ! test -n "$argv"
   ################################################################
   ################################################################
   firefox
-  sublime_text
+  gnome-text-editor
   discord
   redshift
   fish
@@ -293,7 +281,6 @@ if ! test -n "$argv"
   heroic
   minecraft
   teams
-  #fman
   obs
   bitwarden
   obsidian
@@ -307,7 +294,7 @@ if ! test -n "$argv"
   fileroller
   utilities
   freetube
-  thunderbird
+  mail
   onlyoffice
   terminal_autocomplete_case_insensitive
   gnome_keyboard_shortcuts
